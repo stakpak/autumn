@@ -114,3 +114,5 @@ interview
 
 # Stakpak local files
 .stakpak
+
+.data/

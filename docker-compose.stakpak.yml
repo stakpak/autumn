@@ -5,7 +5,7 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
       - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     volumes:
-      - ./data/valkey:/bitnami/valkey/data
+      - ./.data/valkey:/bitnami/valkey/data
     healthcheck:
       test: ['CMD', 'redis-cli', '-h', 'localhost', '-p', '6379', 'ping']
       interval: 10s
@@ -22,7 +22,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ./.data/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
       interval: 10s
@@ -45,6 +45,12 @@ services:
     environment:
       - REDIS_URL=${REDIS_URL}
       - DATABASE_URL=${DATABASE_URL}
+      - ENCRYPTION_IV=${ENCRYPTION_IV}
+      - ENCRYPTION_PASSWORD=${ENCRYPTION_PASSWORD}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=http://localhost:8080
+      - STRIPE_WEBHOOK_URL=${STRIPE_WEBHOOK_URL}
+      - CLIENT_URL=${CLIENT_URL}
     build:
       context: .
       dockerfile: docker/prod.dockerfile

@@ -49,6 +49,10 @@ Dockerfile*
 docker-compose*
 .dockerignore
 
+# Data directories (runtime volumes)
+.data/
+**/.data/
+
 # Tests
 **/tests/
 **/*.test.*

@@ -107,6 +107,9 @@ sudo tail -f /var/log/stakpak-setup.log
 # View cloud-init logs
 sudo cat /var/log/cloud-init-output.log
 
+# Add ubuntu user to docker group
+newgrp docker
+
 # Complete the setup manually
 cd /home/ubuntu/autumn
 ~/.bun/bin/bun setup
