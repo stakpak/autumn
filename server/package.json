@@ -85,6 +85,7 @@
 		"openai": "^4.85.2",
 		"pg": "^8.13.1",
 		"pino": "^9.6.0",
+		"nanoid": "^5.1.6",
 		"pino-pretty": "^13.0.0",
 		"postgres": "^3.4.7",
 		"posthog-node": "^4.17.2",

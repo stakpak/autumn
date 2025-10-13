@@ -4,7 +4,8 @@ import OTPEmail from "@emails/OTPEmail.js";
 import { FROM_AUTUMN } from "./constants.js";
 
 const sendOTPEmail = async ({ email, otp }: { email: string; otp: string }) => {
-	if (!process.env.RESEND_API_KEY || !process.env.RESEND_DOMAIN) {
+	if (!process.env.RESEND_API_KEY) {
+		console.log(`RESEND NOT SET UP, SIGN IN OTP: ${otp}`);
 		logger.warn(`RESEND NOT SET UP, SIGN IN OTP: ${otp}`);
 		return;
 	}
