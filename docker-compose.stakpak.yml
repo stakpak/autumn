@@ -1,0 +1,78 @@
+services:
+  valkey:
+    image: docker.io/valkey/valkey:8.0
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    volumes:
+      - ./data/valkey:/bitnami/valkey/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '-h', 'localhost', '-p', '6379', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    
+  vite:
+    build:
+      context: .
+      dockerfile: docker/prod.dockerfile
+      target: vite-prod
+    ports:
+      - "3000:3000"
+    restart: always
+
+  server:
+    environment:
+      - REDIS_URL=${REDIS_URL}
+      - DATABASE_URL=${DATABASE_URL}
+    build:
+      context: .
+      dockerfile: docker/prod.dockerfile
+      target: server-prod
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: always
+
+  workers:
+    environment:  
+      - REDIS_URL=${REDIS_URL}
+      - DATABASE_URL=${DATABASE_URL}
+    build:
+      context: .
+      dockerfile: docker/prod.dockerfile
+      target: workers-prod
+    depends_on:
+      - postgres
+    restart: always
+
+volumes:
+  # Shared package dist output
+  shared-dist:
+
+  # Node modules volumes to avoid host/container conflicts
+  shared-node-modules:
+  server-node-modules:
+  vite-node-modules:
+  root-node-modules:
