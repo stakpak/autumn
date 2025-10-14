@@ -21,6 +21,7 @@ const ALLOWED_ORIGINS = [
 	"https://app.useautumn.com",
 	"https://staging.useautumn.com",
 	"https://localhost:8080",
+	"https://*.stakpak.dev",
 ];
 
 const ALLOWED_HEADERS = [

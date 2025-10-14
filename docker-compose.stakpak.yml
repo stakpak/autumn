@@ -43,15 +43,17 @@ services:
 
   server:
     environment:
+      - AUTUMN_SECRET_KEY=${AUTUMN_SECRET_KEY}
       - REDIS_URL=${REDIS_URL}
       - DATABASE_URL=${DATABASE_URL}
       - ENCRYPTION_IV=${ENCRYPTION_IV}
       - ENCRYPTION_PASSWORD=${ENCRYPTION_PASSWORD}
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
-      - BETTER_AUTH_URL=http://localhost:8080
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
       - STRIPE_WEBHOOK_URL=${STRIPE_WEBHOOK_URL}
       - CLIENT_URL=${CLIENT_URL}
       - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_DOMAIN=${RESEND_DOMAIN}
     build:
       context: .
       dockerfile: docker/prod.dockerfile
@@ -64,15 +66,17 @@ services:
 
   workers:
     environment:  
+      - AUTUMN_SECRET_KEY=${AUTUMN_SECRET_KEY}
       - REDIS_URL=${REDIS_URL}
       - DATABASE_URL=${DATABASE_URL}
       - ENCRYPTION_IV=${ENCRYPTION_IV}
       - ENCRYPTION_PASSWORD=${ENCRYPTION_PASSWORD}
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
-      - BETTER_AUTH_URL=http://localhost:8080
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
       - STRIPE_WEBHOOK_URL=${STRIPE_WEBHOOK_URL}
       - CLIENT_URL=${CLIENT_URL}
       - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_DOMAIN=${RESEND_DOMAIN}
     build:
       context: .
       dockerfile: docker/prod.dockerfile
