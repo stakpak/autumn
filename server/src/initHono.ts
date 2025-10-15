@@ -23,6 +23,8 @@ const ALLOWED_ORIGINS = [
 	"https://app.useautumn.com",
 	"https://staging.useautumn.com",
 	"https://localhost:8080",
+	"https://api-finance.stakpak.dev",
+	"https://finance.stakpak.dev",
 	"https://*.stakpak.dev",
 ];
 
