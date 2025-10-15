@@ -52,13 +52,17 @@ export const auth = betterAuth({
 			},
 		},
 	},
-	trustedOrigins: (() => {
-		const origins = [
-			"http://localhost:3000",
-			"https://app.useautumn.com",
-			"https://staging.useautumn.com",
-			"https://*.useautumn.com",
-		];
+		trustedOrigins: (() => {
+			const origins = [
+				"http://localhost:3000",
+				"https://app.useautumn.com",
+				"https://staging.useautumn.com",
+				"https://*.useautumn.com",
+				// Stakpak finance domains
+				"https://api-finance.stakpak.dev",
+				"https://finance.stakpak.dev",
+				"https://*.stakpak.dev",
+			];
 
 		// Add dynamic port origins in development
 		if (process.env.NODE_ENV === "development") {
