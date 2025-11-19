@@ -48,6 +48,7 @@ export const handleSetupPayment = async (req: any, res: any) =>
 				mode: "setup",
 				success_url: success_url || toSuccessUrl({ org, env }),
 				currency: org.default_currency || "usd",
+				tax_id_collection: { enabled: true },
 				...(checkout_session_params as any),
 			};
 
