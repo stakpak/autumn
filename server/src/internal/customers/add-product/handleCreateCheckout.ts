@@ -130,6 +130,7 @@ export const handleCreateCheckout = async ({
 		allow_promotion_codes: allowPromotionCodes,
 		invoice_creation: !isRecurring ? { enabled: true } : undefined,
 		saved_payment_method_options: { payment_method_save: "enabled" },
+		tax_id_collection: { enabled: true },
 		...rewardData,
 		...(attachParams.checkoutSessionParams || {}),
 		metadata: {
@@ -151,6 +152,7 @@ export const handleCreateCheckout = async ({
 			mode: "setup",
 			success_url: successUrl || toSuccessUrl({ org, env: customer.env }),
 			currency: org.default_currency || "usd",
+			tax_id_collection: { enabled: true },
 			...(checkoutParams as any),
 			metadata: {
 				...(attachParams.checkoutSessionParams?.metadata || {}),
